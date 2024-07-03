@@ -55,21 +55,21 @@ def is_ordered_block(w3, block_num):
 		block = w3.eth.get_block(block_num, full_transactions=True)
 		base_fee = block.get('baseFeePerGas', 0)
 		transactions = block['transactions']
-	
+
 		priority_fees = []
 		for tx in transactions:
 			if 'maxPriorityFeePerGas' in tx and 'maxFeePerGas' in tx:
-			priority_fee = min(tx['maxPriorityFeePerGas'], tx['maxFeePerGas'] - base_fee)
-		else:
-			priority_fee = tx['gasPrice'] - base_fee
-			priority_fees.append(priority_fee)
-	
+				priority_fee = min(tx['maxPriorityFeePerGas'], tx['maxFeePerGas'] - base_fee)
+			else:
+				priority_fee = tx['gasPrice'] - base_fee
+			priority_fees..append(priority_fee)
+
 		ordered = all(priority_fees[i] >= priority_fees[i + 1] for i in range(len(priority_fees) - 1))
 		return ordered
 	except Exception as e:
 		print(f"Error: is_ordered_block failed\n{e}")
 		return False
-
+	
 
 
 def get_contract_values(contract, admin_address, owner_address):
