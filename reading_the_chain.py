@@ -73,7 +73,7 @@ def is_ordered_block(w3, block_num):
 		prev_fee = current_fee
 
 	if ordered is not False:
-      ordered = True
+		ordered = True
 
 	return ordered
 
