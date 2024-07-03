@@ -66,7 +66,7 @@ def is_ordered_block(w3, block_num):
 		else:
 			current_fee = tx['gasPrice']
 
-		if prev_fee is not None and current_free > prev_fee:
+		if prev_fee is not None and current_fee > prev_fee:
 			ordered = False
 			break
 
