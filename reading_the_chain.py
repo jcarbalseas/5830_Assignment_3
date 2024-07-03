@@ -22,10 +22,10 @@ def connect_to_eth():
 def connect_with_middleware(contract_json):
 	# TODO insert your code for this method from last week's assignment
 	with open(contract_json, "r") as f:
-   d = json.load(f)
-   d = d['bsc']
-   address = d['address']
-   abi = d['abi']
+		d = json.load(f)
+		d = d['bsc']
+		address = d['address']
+		abi = d['abi']
 
 	url = "https://bsc-testnet-rpc.publicnode.com"
 	w3 = Web3(HTTPProvider(url))
