@@ -51,31 +51,24 @@ def is_ordered_block(w3, block_num):
 
 	Conveniently, most type 2 transactions set the gasPrice field to be min( tx.maxPriorityFeePerGas + block.baseFeePerGas, tx.maxFeePerGas )
 	"""
-	block = w3.eth.get_block(block_num)
-	transactions = block['transactions'] #added by myself
-	ordered = False
-
-	# TODO YOUR CODE HERE
-	prev_fee = None
-
-	for tx_hash in transactions:
-		tx = w3.eth.get_transaction(tx_hash)
-
-		if 'maxPriorityFeePerGas' in tx and 'maxFeePerGas' in tx:
-			current_fee = min(tx['maxPriorityFeePerGas'], tx['maxFeePerGas'] - block['baseFeePerGas'])
-		else:
-			current_fee = tx['gasPrice']
-
-		if prev_fee is not None and current_fee > prev_fee:
-			ordered = False
-			break
-
-		prev_fee = current_fee
-
-	if ordered is not False:
-		ordered = True
-
-	return ordered
+try:
+        block = w3.eth.get_block(block_num, full_transactions=True)
+        base_fee = block.get('baseFeePerGas', 0)
+        transactions = block['transactions']
+        
+        priority_fees = []
+        for tx in transactions:
+            if 'maxPriorityFeePerGas' in tx and 'maxFeePerGas' in tx:
+                priority_fee = min(tx['maxPriorityFeePerGas'], tx['maxFeePerGas'] - base_fee)
+            else:
+                priority_fee = tx['gasPrice'] - base_fee
+            priority_fees.append(priority_fee)
+        
+        ordered = all(priority_fees[i] >= priority_fees[i + 1] for i in range(len(priority_fees) - 1))
+        return ordered
+    except Exception as e:
+        print(f"Error: is_ordered_block failed\n{e}")
+        return False
 
 
 def get_contract_values(contract, admin_address, owner_address):
