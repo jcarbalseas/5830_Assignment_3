@@ -51,7 +51,7 @@ def is_ordered_block(w3, block_num):
 
 	Conveniently, most type 2 transactions set the gasPrice field to be min( tx.maxPriorityFeePerGas + block.baseFeePerGas, tx.maxFeePerGas )
 	"""
-try:
+    try:
         block = w3.eth.get_block(block_num, full_transactions=True)
         base_fee = block.get('baseFeePerGas', 0)
         transactions = block['transactions']
@@ -69,6 +69,7 @@ try:
     except Exception as e:
         print(f"Error: is_ordered_block failed\n{e}")
         return False
+
 
 
 def get_contract_values(contract, admin_address, owner_address):
