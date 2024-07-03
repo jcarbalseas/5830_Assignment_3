@@ -14,7 +14,7 @@ def connect_to_eth():
 	# TODO insert your code for this method from last week's assignment
 	url = "https://mainnet.infura.io/v3/bfae8555ac6f497097223d4573f9c441"  # FILL THIS IN
 	w3 = Web3(HTTPProvider(url))
- 	assert w3.is_connected(), f"Failed to connect to provider at {url}"
+	assert w3.is_connected(), f"Failed to connect to provider at {url}"
 
 	return w3
 
@@ -27,13 +27,13 @@ def connect_with_middleware(contract_json):
    address = d['address']
    abi = d['abi']
 
- 	url = "https://bsc-testnet-rpc.publicnode.com"
- 	w3 = Web3(HTTPProvider(url))
- 	assert w3.is_connected(), f"Failed to connect to provider at {url}"
+	url = "https://bsc-testnet-rpc.publicnode.com"
+	w3 = Web3(HTTPProvider(url))
+	assert w3.is_connected(), f"Failed to connect to provider at {url}"
 
- 	w3.middleware_onion.inject(geth_poa_middleware, layer=0)
+	w3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
- 	contract = w3.eth.contract(address=address, abi=abi)
+	contract = w3.eth.contract(address=address, abi=abi)
 
 	return w3, contract
 
