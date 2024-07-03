@@ -13,7 +13,7 @@ from web3.providers.rpc import HTTPProvider
 def connect_to_eth():
 	# TODO insert your code for this method from last week's assignment
 	url = "https://mainnet.infura.io/v3/bfae8555ac6f497097223d4573f9c441"  # FILL THIS IN
- 	w3 = Web3(HTTPProvider(url))
+	w3 = Web3(HTTPProvider(url))
  	assert w3.is_connected(), f"Failed to connect to provider at {url}"
 
 	return w3
